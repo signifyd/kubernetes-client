@@ -36,6 +36,10 @@ class AutoscalingV2Api(object):
             api_client = ApiClient()
         self.api_client = api_client
 
+        # set api version
+        major, minor = api_client.get_server_version()
+        self.api_version = "v2beta1" if int(minor) < 23 else "v2"
+
     def create_namespaced_horizontal_pod_autoscaler(self, namespace, body, **kwargs):  # noqa: E501
         """create_namespaced_horizontal_pod_autoscaler  # noqa: E501
 
@@ -163,15 +167,18 @@ class AutoscalingV2Api(object):
         # Authentication setting
         auth_settings = ['BearerToken']  # noqa: E501
 
+        path_params['api_version'] = self.api_version
+        response_type = 'V2beta1HorizontalPodAutoscaler' if self.api_version == "v2beta1" else "V2HorizontalPodAutoscaler"
+
         return self.api_client.call_api(
-            '/apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers', 'POST',
+            '/apis/autoscaling/{api_version}/namespaces/{namespace}/horizontalpodautoscalers', 'POST',
             path_params,
             query_params,
             header_params,
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='V2HorizontalPodAutoscaler',  # noqa: E501
+            response_type=response_type,  # noqa: E501
             auth_settings=auth_settings,
             async_req=local_var_params.get('async_req'),
             _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
@@ -495,8 +502,10 @@ class AutoscalingV2Api(object):
         # Authentication setting
         auth_settings = ['BearerToken']  # noqa: E501
 
+        path_params['api_version'] = self.api_version
+
         return self.api_client.call_api(
-            '/apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers/{name}', 'DELETE',
+            '/apis/autoscaling/{api_version}/namespaces/{namespace}/horizontalpodautoscalers/{name}', 'DELETE',
             path_params,
             query_params,
             header_params,
@@ -919,15 +928,19 @@ class AutoscalingV2Api(object):
         # Authentication setting
         auth_settings = ['BearerToken']  # noqa: E501
 
+        path_params['api_version'] = self.api_version
+        response_type = 'V2beta1HorizontalPodAutoscalerList' if self.api_version == "v2beta1" else "V2HorizontalPodAutoscalerList"
+
+
         return self.api_client.call_api(
-            '/apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers', 'GET',
+            '/apis/autoscaling/{api_version}/namespaces/{namespace}/horizontalpodautoscalers', 'GET',
             path_params,
             query_params,
             header_params,
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='V2HorizontalPodAutoscalerList',  # noqa: E501
+            response_type=response_type,  # noqa: E501
             auth_settings=auth_settings,
             async_req=local_var_params.get('async_req'),
             _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
@@ -1080,15 +1093,18 @@ class AutoscalingV2Api(object):
         # Authentication setting
         auth_settings = ['BearerToken']  # noqa: E501
 
+        path_params['api_version'] = self.api_version
+        response_type = 'V2beta1HorizontalPodAutoscaler' if self.api_version == "v2beta1" else "V2HorizontalPodAutoscaler"
+
         return self.api_client.call_api(
-            '/apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers/{name}', 'PATCH',
+            '/apis/autoscaling/{api_version}/namespaces/{namespace}/horizontalpodautoscalers/{name}', 'PATCH',
             path_params,
             query_params,
             header_params,
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='V2HorizontalPodAutoscaler',  # noqa: E501
+            response_type=response_type,  # noqa: E501
             auth_settings=auth_settings,
             async_req=local_var_params.get('async_req'),
             _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
@@ -1241,15 +1257,18 @@ class AutoscalingV2Api(object):
         # Authentication setting
         auth_settings = ['BearerToken']  # noqa: E501
 
+        path_params['api_version'] = self.api_version
+        response_type = 'V2beta1HorizontalPodAutoscaler' if self.api_version == "v2beta1" else "V2HorizontalPodAutoscaler"
+
         return self.api_client.call_api(
-            '/apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers/{name}/status', 'PATCH',
+            '/apis/autoscaling/{api_version}/namespaces/{namespace}/horizontalpodautoscalers/{name}/status', 'PATCH',
             path_params,
             query_params,
             header_params,
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='V2HorizontalPodAutoscaler',  # noqa: E501
+            response_type=response_type,  # noqa: E501
             auth_settings=auth_settings,
             async_req=local_var_params.get('async_req'),
             _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501

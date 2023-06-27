@@ -117,6 +117,11 @@ class ApiClient(object):
     def set_default_header(self, header_name, header_value):
         self.default_headers[header_name] = header_value
 
+    def get_server_version(self):
+        response = self.__call_api("/version", "GET", auth_settings=['BearerToken'], _preload_content=False, _return_http_data_only=True)
+        result = json.loads(response.data.decode('utf-8'))
+        return result["major"], result["minor"]
+
     def __call_api(
             self, resource_path, method, path_params=None,
             query_params=None, header_params=None, body=None, post_params=None,

@@ -36,6 +36,10 @@ class PolicyV1Api(object):
             api_client = ApiClient()
         self.api_client = api_client
 
+        # set api version
+        major, minor = api_client.get_server_version()
+        self.api_version = "v1beta1" if int(minor) < 23 else "v1"
+
     def create_namespaced_pod_disruption_budget(self, namespace, body, **kwargs):  # noqa: E501
         """create_namespaced_pod_disruption_budget  # noqa: E501
 
@@ -163,15 +167,18 @@ class PolicyV1Api(object):
         # Authentication setting
         auth_settings = ['BearerToken']  # noqa: E501
 
+        path_params['api_version'] = self.api_version
+        response_type = 'V1beta1PodDisruptionBudget' if self.api_version == "v1beta1" else "V1PodDisruptionBudget"
+
         return self.api_client.call_api(
-            '/apis/policy/v1/namespaces/{namespace}/poddisruptionbudgets', 'POST',
+            '/apis/policy/{api_version}/namespaces/{namespace}/poddisruptionbudgets', 'POST',
             path_params,
             query_params,
             header_params,
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='V1PodDisruptionBudget',  # noqa: E501
+            response_type=response_type,  # noqa: E501
             auth_settings=auth_settings,
             async_req=local_var_params.get('async_req'),
             _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
@@ -495,8 +502,10 @@ class PolicyV1Api(object):
         # Authentication setting
         auth_settings = ['BearerToken']  # noqa: E501
 
+        path_params['api_version'] = self.api_version
+
         return self.api_client.call_api(
-            '/apis/policy/v1/namespaces/{namespace}/poddisruptionbudgets/{name}', 'DELETE',
+            '/apis/policy/{api_version}/namespaces/{namespace}/poddisruptionbudgets/{name}', 'DELETE',
             path_params,
             query_params,
             header_params,
@@ -764,15 +773,18 @@ class PolicyV1Api(object):
         # Authentication setting
         auth_settings = ['BearerToken']  # noqa: E501
 
+        path_params['api_version'] = self.api_version
+        response_type = 'V1beta1PodDisruptionBudgetList' if self.api_version == "v1beta1" else "V1PodDisruptionBudgetList"
+
         return self.api_client.call_api(
-            '/apis/policy/v1/namespaces/{namespace}/poddisruptionbudgets', 'GET',
+            '/apis/policy/{api_version}/namespaces/{namespace}/poddisruptionbudgets', 'GET',
             path_params,
             query_params,
             header_params,
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='V1PodDisruptionBudgetList',  # noqa: E501
+            response_type=response_type,  # noqa: E501
             auth_settings=auth_settings,
             async_req=local_var_params.get('async_req'),
             _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
@@ -1080,15 +1092,18 @@ class PolicyV1Api(object):
         # Authentication setting
         auth_settings = ['BearerToken']  # noqa: E501
 
+        path_params['api_version'] = self.api_version
+        response_type = 'V1beta1PodDisruptionBudget' if self.api_version == "v1beta1" else "V1PodDisruptionBudget"
+
         return self.api_client.call_api(
-            '/apis/policy/v1/namespaces/{namespace}/poddisruptionbudgets/{name}', 'PATCH',
+            '/apis/policy/{api_version}/namespaces/{namespace}/poddisruptionbudgets/{name}', 'PATCH',
             path_params,
             query_params,
             header_params,
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='V1PodDisruptionBudget',  # noqa: E501
+            response_type=response_type,  # noqa: E501
             auth_settings=auth_settings,
             async_req=local_var_params.get('async_req'),
             _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
@@ -1369,15 +1384,18 @@ class PolicyV1Api(object):
         # Authentication setting
         auth_settings = ['BearerToken']  # noqa: E501
 
+        path_params['api_version'] = self.api_version
+        response_type = 'V1beta1PodDisruptionBudget' if self.api_version == "v1beta1" else "V1PodDisruptionBudget"
+
         return self.api_client.call_api(
-            '/apis/policy/v1/namespaces/{namespace}/poddisruptionbudgets/{name}', 'GET',
+            '/apis/policy/{api_version}/namespaces/{namespace}/poddisruptionbudgets/{name}', 'GET',
             path_params,
             query_params,
             header_params,
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='V1PodDisruptionBudget',  # noqa: E501
+            response_type=response_type,  # noqa: E501
             auth_settings=auth_settings,
             async_req=local_var_params.get('async_req'),
             _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
