@@ -120,7 +120,7 @@ class ApiClient(object):
     def get_server_version(self):
         response = self.__call_api("/version", "GET", auth_settings=['BearerToken'], _preload_content=False, _return_http_data_only=True)
         result = json.loads(response.data.decode('utf-8'))
-        return result["major"], result["minor"]
+        return result["major"], result["minor"].replace("+", "")
 
     def __call_api(
             self, resource_path, method, path_params=None,
